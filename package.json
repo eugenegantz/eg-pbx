@@ -1,0 +1,11 @@
+{
+	"name": "eg-pbx",
+	"description": "библиотека взаимодействия с атс",
+	"author": {
+		"name": "EugeneGantz",
+		"email": "eugengantz@gmail.com"
+	},
+	"main": "./lib/pbx.js",
+	"version": "1.0.0",
+	"dependencies": {}
+}

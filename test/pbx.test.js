@@ -1,19 +1,21 @@
 const
+	appCfg = require('./app-config.js'),
+	pbxCfg = appCfg.external_services.pbx,
 	assert = require('assert');
 
 describe('m-pbx', () => {
-	let PBX = require('./pbx.js');
+	let PBX = require('./../lib/pbx.js');
 
 	function mkPBX() {
 		let pbx = new PBX();
 		pbx.debug = 1;
 
 		return pbx.connect({
-			port: '5038',
-			host: '192.168.3.13'
+			port: pbxCfg.port,
+			host: pbxCfg.host
 		}).login({
-			usr: 'admin',
-			pwd: 'admin'
+			usr: pbxCfg.usr,
+			pwd: pbxCfg.pwd
 		}).then(() => {
 			return Promise.resolve(pbx);
 		});
@@ -28,11 +30,11 @@ describe('m-pbx', () => {
 			pbx.debug = 1;
 
 			pbx.connect({
-				port: '5038',
-				host: '192.168.3.13'
+				port: pbxCfg.port,
+				host: pbxCfg.host
 			}).login({
-				usr: 'admin',
-				pwd: 'admin'
+				usr: pbxCfg.usr,
+				pwd: pbxCfg.pwd
 			}).then(() => {
 				hasLogin = 1;
 
