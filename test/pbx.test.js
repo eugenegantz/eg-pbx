@@ -90,7 +90,7 @@ describe('m-pbx', () => {
 			mkPBX().then(_pbx => {
 				pbx = _pbx;
 
-				return pbx.gsmShowSpan({ spanId: 1 });
+				return pbx.gsmShowSpan({ spanId: pbxCfg.span_id });
 
 			}).then(_span => {
 				span = _span;
@@ -104,6 +104,44 @@ describe('m-pbx', () => {
 
 		it('', () => {
 			assert.equal(typeof span, 'object');
+		});
+	});
+
+
+	describe.skip('gsmSendSMS', function() {
+		let pbx;
+
+		this.timeout(10000);
+
+		it('', function() {
+			return mkPBX().then(_pbx => {
+				pbx = _pbx;
+
+				// длинное сообщение с кириллицей
+				let msg = ''
+					+ '1234567890'
+					+ 'qwertyuiopasdfghjklzxcvbnm'
+					+ 'QWERTYUIOPASDFGHJKLZXCVBNM'
+					+ 'йцукенгшщзфывапролдячсмить'
+					+ 'ЙЦУКЕНГШЩЗФЫВАПРОЛДЯЧСМИТЬ'
+					+ '';
+
+				return pbx.gsmSendSMS({
+					spanId: pbxCfg.span_id,
+					tel: '89787342741',
+					msg: msg,
+				});
+
+			}).then(() => {
+				console.log('done');
+
+				pbx.disconnect();
+
+			}).catch(err => {
+				pbx.disconnect();
+
+				return err;
+			});
 		});
 	});
 
